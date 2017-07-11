@@ -12,10 +12,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nu.zjy.entity.CheCi;
-import com.nu.zjy.entity.Order;
-import com.nu.zjy.entity.Ticket;
-import com.nuc.zjy.role.Customer;
+import com.nu.zjy.entity.Customer;
 
 /**
  * @项目名称：ticket
@@ -42,9 +39,6 @@ public class MyServer {
 	File oderFile = null;
 	File checiFile = null;
 	Object object = null;
-	List<Ticket> list_ticke = new ArrayList<>();
-	List<Order> list_order = new ArrayList<>();
-	List<CheCi> list_checi = new ArrayList<>();
 	List<Customer> list_user = new ArrayList<>();
 
 	public static void main(String[] args) {
@@ -87,8 +81,8 @@ public class MyServer {
 			started = true;
 			while (started) {
 				socket = ss.accept();
-				ClientThread clientThread = new ClientThread(socket);
-				new Thread(clientThread).start();
+				ServerThread ServerThread = new ServerThread(socket);
+				new Thread(ServerThread).start();
 			}
 
 		} catch (IOException e) {
@@ -97,18 +91,18 @@ public class MyServer {
 	}
 
 	/**
-	 * @类名称：ClientThread
+	 * @类名称：ServerThread
 	 * @类描述： 接收客户端信息的线程
 	 * 
 	 * @author 赵建银
 	 */
-	class ClientThread implements Runnable {
+	class ServerThread implements Runnable {
 
 		Socket socket = null;
 		ObjectInputStream objectInputStream = null;
 		ObjectOutputStream objectOutputStream = null;
 
-		public ClientThread(Socket socket) {
+		public ServerThread(Socket socket) {
 			this.socket = socket;
 			try {
 				objectInputStream = new ObjectInputStream(
@@ -124,7 +118,7 @@ public class MyServer {
 		 * 向客户端发送读取的文件内容
 		 */
 		public void send() {
-			
+
 		}
 
 		/**
@@ -148,6 +142,8 @@ public class MyServer {
 			} else {
 				System.out.println("对象为空");
 			}
+			send();
+			// TODO 流没有关闭
 		}
 
 		public void save(Object object) {
@@ -155,26 +151,10 @@ public class MyServer {
 				if (object instanceof Customer) {
 					objectOutputStreamfile = new ObjectOutputStream(
 							new FileOutputStream(userFile, true));
-					
+
 					// TODO 此处添加是否存在该用户
 					objectOutputStreamfile.writeObject(object);
 					System.out.println(object);
-				} else if (object instanceof Ticket) {
-					objectOutputStreamfile = new ObjectOutputStream(
-							new FileOutputStream(ticketFile, true));
-					// TODO 此处添加是否存在该用户
-					objectOutputStreamfile.writeObject(object);
-					System.out.println(object);
-				} else if (object instanceof CheCi) {
-					objectOutputStreamfile = new ObjectOutputStream(
-							new FileOutputStream(checiFile, true));
-					// TODO 此处添加是否存在该用户
-					objectOutputStreamfile.writeObject(object);
-				} else if (object instanceof Order) {
-					objectOutputStreamfile = new ObjectOutputStream(
-							new FileOutputStream(oderFile, true));
-					// TODO 此处添加是否存在该用户
-					objectOutputStreamfile.writeObject(object);
 				}
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -182,44 +162,6 @@ public class MyServer {
 				e.printStackTrace();
 			}
 
-		}
-
-		public List<Ticket> readTicket() {
-			try {
-				Ticket ticket = null;
-				objectInputStreamfile = new ObjectInputStream(
-						new FileInputStream(ticketFile));
-				while (objectInputStreamfile.readObject() != null) {
-					ticket = (Ticket) objectInputStreamfile.readObject();
-					list_ticke.add(ticket);
-				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			return list_ticke;
-		}
-
-		public List<Order> readOrder() {
-			try {
-				Order order = null;
-				objectInputStreamfile = new ObjectInputStream(
-						new FileInputStream(oderFile));
-				while (objectInputStreamfile.readObject() != null) {
-					order = (Order) objectInputStreamfile.readObject();
-					list_order.add(order);
-				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			return list_order;
 		}
 
 		public List<Customer> readUser() {
@@ -241,24 +183,5 @@ public class MyServer {
 			return list_user;
 		}
 
-		public List<CheCi> readCheci() {
-			try {
-				CheCi cheCi = null;
-				objectInputStreamfile = new ObjectInputStream(
-						new FileInputStream(ticketFile));
-				while (objectInputStreamfile.readObject() != null) {
-					cheCi = (CheCi) objectInputStreamfile.readObject();
-					list_checi.add(cheCi);
-				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			return list_checi;
-		}
 	}
-
 }

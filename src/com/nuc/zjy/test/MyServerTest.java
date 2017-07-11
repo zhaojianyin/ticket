@@ -2,13 +2,11 @@ package com.nuc.zjy.test;
 
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nu.zjy.entity.CheCi;
-import com.nuc.zjy.role.Customer;
+import com.nu.zjy.entity.Customer;
 
 /**
  * @项目名称：ticket
@@ -42,9 +40,6 @@ public class MyServerTest {
 		try {
 			Customer manager = new Customer("0003", "赵建银", "12345678",
 					"142201199510313375", "成年人");
-			CheCi cheCi = new CheCi("太原", "北京", new Date(), new Date(), 1800,
-					100, "C200");
-			objectOutputStream.writeObject(cheCi);
 			objectOutputStream.writeObject(manager);
 		} catch (Exception e) {
 			e.printStackTrace();

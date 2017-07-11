@@ -22,7 +22,7 @@ public class Order implements Serializable {
 	private String name;// 用户名
 	private List<Ticket> list;// 用户车票
 	private double total;//订单总金额
-
+	//购买时间
 	public Order() {
 		super();
 	}
