@@ -13,7 +13,6 @@ import com.nuc.zjy.service.CustomerService;
  * @类描述：顾客接口实现类
  * 
  * @author 赵建银
- * @email 384144795@qq.com
  * @date 2017-7-7
  * @time 下午6:30:45
  * @version 1.0
@@ -54,12 +53,7 @@ public class CustomerServiceimpl implements CustomerService {
 
 	@Override
 	public boolean save(Customer customer) {
-		if (customer != null) {
-			context.setCustomer(customer);
-			return true;
-		} else {
-			return false;
-		}
+		return context.setCustomer(customer);
 	}
 
 	@Override
@@ -75,10 +69,6 @@ public class CustomerServiceimpl implements CustomerService {
 	@Override
 	public List<Customer> findAll() {
 		return null;
-	}
-
-	public EntityContext getContext() {
-		return context;
 	}
 
 }

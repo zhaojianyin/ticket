@@ -3,16 +3,15 @@ package com.nu.zjy.entity;
 /**
  * @项目名称：ticket
  * @类名称：Model
- * @类描述：
+ * @类描述：航班实体类，包括航班号，起飞时间，起点，终点，航班类型，票价，航班票剩余数量
  * 
  * @author 赵建银
- * @email 384144795@qq.com
  * @date 2017-7-10
  * @time 上午11:27:51
  * @version 1.0
  */
 public class Model {
-	private String jici;// 车次
+	private String jici;// 航班号
 	private String starttime;
 	private String start;
 	private String end;
@@ -24,6 +23,22 @@ public class Model {
 		super();
 	}
 
+	/**
+	 * @param jici
+	 *            航班号
+	 * @param starttime
+	 *            起飞时间
+	 * @param start
+	 *            起始地点
+	 * @param end
+	 *            终点
+	 * @param type
+	 *            类型
+	 * @param price
+	 *            价格
+	 * @param number
+	 *            机票数量
+	 */
 	public Model(String jici, String starttime, String start, String end,
 			String type, double price, int number) {
 		super();
@@ -92,12 +107,4 @@ public class Model {
 		this.price = price;
 	}
 
-	@Override
-	public String toString() {
-		return "Model [jici=" + jici + ", starttime=" + starttime + ", start="
-				+ start + ", end=" + end + ", type=" + type + ", price="
-				+ price + ", number=" + number + "]";
-	}
-
-	
 }

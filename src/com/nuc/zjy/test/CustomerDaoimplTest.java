@@ -14,7 +14,6 @@ import com.nuc.zjy.util.Config;
  * @类描述：
  * 
  * @author 赵建银
- * @email 384144795@qq.com
  * @date 2017-7-8
  * @time 下午3:35:14
  * @version 1.0

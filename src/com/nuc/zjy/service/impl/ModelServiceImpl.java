@@ -32,22 +32,17 @@ public class ModelServiceImpl implements ModelService {
 
 	@Override
 	public boolean save(Model entity) {
-		if (entity != null) {
-			context.setModel(entity);
-			return true;
-		} else {
-			return false;
-		}
+		return context.setModel(entity, true);
 	}
 
 	@Override
 	public boolean update(Model entity) {
-		return false;
+		return context.updateModel(entity);
 	}
 
 	@Override
 	public boolean delete(String id) {
-		return false;
+		return context.deleteModel(id);
 	}
 
 	@Override
@@ -59,5 +54,19 @@ public class ModelServiceImpl implements ModelService {
 	public Vector<Model> find(String start, String end, String starttime) {
 		Vector<Model> list = context.findModel(start, end, starttime);
 		return list;
+	}
+
+	/**
+	 * 按航班号和类型查找航班
+	 * 
+	 * @param jici
+	 *            航班号
+	 * @param type
+	 *            类型
+	 * @return 航班
+	 */
+	public Model findByJiandtype(String jici, String type) {
+		Model model = context.findModelByjiciandtype(jici, type);
+		return model;
 	}
 }

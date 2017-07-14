@@ -5,10 +5,9 @@ import java.io.Serializable;
 /**
  * @项目名称：ticket
  * @类名称：Customer
- * @类描述：
+ * @类描述：顾客实体类,包括用户账号，用户姓名，用户密码，用户身份证号，以及用户类型(成年|未成年)
  * 
  * @author 赵建银
- * @email 384144795@qq.com
  * @date 2017-7-7
  * @time 上午10:48:57
  * @version 1.0
@@ -19,7 +18,7 @@ public class Customer implements Serializable {
 	private String name;
 	private String passwd;
 	private String cardId;
-	private String type;// 顾客类型
+	private String type;// 顾客类型(成年|未成年)
 
 	/**
 	 * 
@@ -89,12 +88,6 @@ public class Customer implements Serializable {
 
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
-	}
-
-	@Override
-	public String toString() {
-		return "Customer [iD=" + iD + ", name=" + name + ", passwd=" + passwd
-				+ ", cardId=" + cardId + ", type=" + type + "]";
 	}
 
 }

@@ -6,7 +6,6 @@ package com.nuc.zjy.service;
  * @类描述：管理员接口
  * 
  * @author 赵建银
- * @email 384144795@qq.com
  * @date 2017-7-7
  * @time 上午10:47:03
  * @version 1.0

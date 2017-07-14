@@ -5,10 +5,9 @@ import java.io.Serializable;
 /**
  * @项目名称：ticket
  * @类名称：Ticket
- * @类描述： 车票试题类
+ * @类描述： 车票实体类，包括航班号，座位号，票号，票价，机票类型，以及是否使用
  * 
  * @author 赵建银
- * @email 384144795@qq.com
  * @date 2017-7-7
  * @time 上午10:16:01
  * @version 1.0
@@ -22,13 +21,27 @@ public class Ticket implements Serializable {
 	private String idString;// 票号
 	private String zuowei;// 座位号
 	private double price;// 票价
-	private String type;// 车票类型
+	private String type;// 机票类型
 	private boolean used;// 是否使用
 
 	public Ticket() {
 		super();
 	}
 
+	/**
+	 * @param jici
+	 *            航班号
+	 * @param idString
+	 *            票号
+	 * @param zuowei
+	 *            座位号
+	 * @param price
+	 *            价格
+	 * @param type
+	 *            类型
+	 * @param used
+	 *            是否使用
+	 */
 	public Ticket(String jici, String idString, String zuowei, double price,
 			String type, boolean used) {
 		super();
@@ -87,13 +100,4 @@ public class Ticket implements Serializable {
 	public void setUsed(boolean used) {
 		this.used = used;
 	}
-
-	@Override
-	public String toString() {
-		return "Ticket [jici=" + jici + ", idString=" + idString + ", zuowei="
-				+ zuowei + ", price=" + price + ", type=" + type + ", used="
-				+ used + "]";
-	}
-
-	
 }

@@ -1,49 +1,74 @@
 package com.nuc.zjy.client;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
+import com.nu.zjy.entity.EntityContext;
+import com.nuc.zjy.frame.ClientContext;
+import com.nuc.zjy.frame.LoginFrame;
+import com.nuc.zjy.frame.MainFrame;
+import com.nuc.zjy.frame.Manager_MainFrame;
+import com.nuc.zjy.frame.RegisterFrame;
+import com.nuc.zjy.service.impl.CustomerServiceimpl;
+import com.nuc.zjy.service.impl.ManagerServiceimpl;
+import com.nuc.zjy.service.impl.ModelServiceImpl;
+import com.nuc.zjy.service.impl.OrderServiceimpl;
+import com.nuc.zjy.service.impl.TicketServiceimpl;
+import com.nuc.zjy.util.Config;
 
 /**
  * @项目名称：ticket
  * @类名称：MyClient
- * @类描述：
+ * @类描述：初始化组件
  * 
  * @author 赵建银
- * @email 384144795@qq.com
  * @date 2017-7-8
  * @time 上午8:07:25
  * @version 1.0
  */
 public class MyClient {
 
-	Socket s = null;
-	ObjectInputStream objectInputStream = null;
-	ObjectOutputStream objectOutputStream = null;
+	public static void start() {
+		// 初始化组件
+		LoginFrame loginFrame = new LoginFrame();
+		RegisterFrame registerFrame = new RegisterFrame();
+		MainFrame mainFrame = new MainFrame();
+		Manager_MainFrame manager_main = new Manager_MainFrame();
+		// 加载文件
+		Config config = new Config("client.properties");
+		// 配置文件
+		EntityContext entityContext = new EntityContext(config);
+		entityContext.setRegister(registerFrame);
 
-	public void Connected() {
-		try {
-			s = new Socket("127.0.0.1", 9898);
-			objectOutputStream = new ObjectOutputStream(s.getOutputStream());
-			objectInputStream = new ObjectInputStream(s.getInputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		new Thread(new ClientThread()).start();
+		// 初始化实现
+		CustomerServiceimpl customerServiceimpl = new CustomerServiceimpl();
+		ManagerServiceimpl managerServiceimpl = new ManagerServiceimpl();
+		ModelServiceImpl modelServiceImpl = new ModelServiceImpl();
+		TicketServiceimpl ticketServiceimpl = new TicketServiceimpl();
+		OrderServiceimpl orderServiceimpl = new OrderServiceimpl();
+
+		// 初始化界面管理
+		ClientContext clientContext = new ClientContext();
+
+		// 界面注册管理
+		registerFrame.setClientContext(clientContext);
+		loginFrame.setClientContext(clientContext);
+		mainFrame.setClientContext(clientContext);
+		manager_main.setClientContext(clientContext);
+		// 注册实现
+		clientContext.setManagerServiceimpl(managerServiceimpl);
+		clientContext.setModelServiceImpl(modelServiceImpl);
+		clientContext.setTicketServiceimpl(ticketServiceimpl);
+		clientContext.setOrderServiceimpl(orderServiceimpl);
+		clientContext.setCustomerServiceimpl(customerServiceimpl);
+		clientContext.setRegister(registerFrame);
+		clientContext.setMainFrame(mainFrame);
+		clientContext.setLoginFrame(loginFrame);
+		clientContext.setManager_MainFrame(manager_main);
+		clientContext.setContext(entityContext);
+		// 接口注册管理
+		customerServiceimpl.setContext(entityContext);
+		modelServiceImpl.setContext(entityContext);
+		ticketServiceimpl.setContext(entityContext);
+		orderServiceimpl.setContext(entityContext);
+		// 显示
+		clientContext.show();
 	}
-
-	class ClientThread implements Runnable {
-		@Override
-		public void run() {
-			Object object = null;
-			try {
-				objectOutputStream.writeObject(object);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-	
 }

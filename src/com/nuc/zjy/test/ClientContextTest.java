@@ -14,10 +14,9 @@ import com.nuc.zjy.util.Config;
 /**
  * @项目名称：ticket
  * @类名称：ClientContextTest
- * @类描述：
+ * @类描述：ClientContext的测试类
  * 
  * @author 赵建银
- * @email 384144795@qq.com
  * @date 2017-7-8
  * @time 下午3:12:35
  * @version 1.0
